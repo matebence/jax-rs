@@ -58,7 +58,7 @@
 - nouns
 - verbs
 
-**Caching**
+**Caching** \
 In HTTP 1.1 the Cache-Control header specifies the resource caching behavior as well as the max age the resource can be cached
 - `private` only clients (mostly the browser) and no one else in the chain (like a proxy) should cache this
 - `public` any entity in the chain can cache this
