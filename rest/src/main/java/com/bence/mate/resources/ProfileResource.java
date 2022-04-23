@@ -10,9 +10,12 @@ import org.glassfish.jersey.linking.Binding;
 import javax.annotation.security.RolesAllowed;
 import javax.annotation.security.PermitAll;
 
+import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.EntityTag;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Link;
@@ -108,13 +111,24 @@ public class ProfileResource {
     @ProvideLink(value = Profile.class, rel = "get", bindings = {
             @Binding(name = "profileName", value = "${instance.profileName}")
     })
-    public Response getProfile(@PathParam("profileName") String profileName, @Context UriInfo uriInfo) {
+    public Response getProfile(@PathParam("profileName") String profileName, @Context UriInfo uriInfo, @Context Request request) {
         System.out.println(profileName);
 
         Profile profile = profileService.getProfile(profileName);
 
-        return Response.ok(profile)
-                .build();
+        CacheControl cc = new CacheControl();
+        cc.setMaxAge(86400);
+
+        EntityTag  entityTag = new EntityTag(Integer.toString(profile.hashCode()));
+        Response.ResponseBuilder response = request.evaluatePreconditions(entityTag);
+
+        if(response == null) {
+            response = Response.ok(profile);
+            response.tag(entityTag);
+        }
+
+        response.cacheControl(cc);
+        return response.build();
     }
 
     @GET

@@ -1,5 +1,6 @@
 package com.bence.mate.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Builder;
@@ -13,17 +14,15 @@ import java.io.Serializable;
 @XmlRootElement
 @NoArgsConstructor
 @AllArgsConstructor
-public class Error implements Serializable {
+public class Health implements Serializable {
+
+    @JsonIgnore
+    public static final String DOWN = "DOWN";
+
+    @JsonIgnore
+    public static final String UP = "UP";
 
     @Getter
     @Setter
-    private String documentation;
-
-    @Getter
-    @Setter
-    private String errorMessage;
-
-    @Getter
-    @Setter
-    private int errCode;
+    private String status;
 }

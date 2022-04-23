@@ -12,7 +12,7 @@
 
     <login-config>
         <auth-method>BASIC</auth-method>
-        <realm-name>ApiRealm</realm-name>
+        <realm-name>RealmUsersRoles</realm-name>
     </login-config>
 
     <servlet-mapping>
@@ -32,7 +32,8 @@
             <param-value>
                 org.glassfish.jersey.linking.DeclarativeLinkingFeature;
                 org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature
-                org.glassfish.jersey.message.filtering.SecurityEntityFilteringFeature
+                <!--Browser support-->
+                <!--org.glassfish.jersey.message.filtering.SecurityEntityFilteringFeature-->
             </param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>

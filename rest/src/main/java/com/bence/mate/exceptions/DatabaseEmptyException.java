@@ -10,9 +10,9 @@ public class DatabaseEmptyException extends WebApplicationException {
     public DatabaseEmptyException() {
         super(Response.status(Response.Status.NOT_FOUND)
                 .entity(new Error(
+                        "https://github.com/matebence",
                         "The database is empty",
-                        Response.Status.NOT_FOUND.getStatusCode(),
-                        "https://github.com/matebence"))
+                        Response.Status.NOT_FOUND.getStatusCode()))
                 .build());
     }
 }

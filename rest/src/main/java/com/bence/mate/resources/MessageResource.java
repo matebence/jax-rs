@@ -1,5 +1,6 @@
 package com.bence.mate.resources;
 
+import com.bence.mate.exceptions.MethodNotAllowedException;
 import com.bence.mate.dtos.MessageFilterParam;
 import com.bence.mate.services.MessageService;
 import com.bence.mate.models.Message;
@@ -21,6 +22,7 @@ import javax.ws.rs.Path;
 
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.CookieParam;
+import javax.ws.rs.HttpMethod;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.BeanParam;
 
@@ -48,6 +50,8 @@ public class MessageResource {
     public Response addMessage(@Context UriInfo uriInfo, Message message) {
         Message newMessage = messageService.addMessage(message);
 
+        if (message == null) throw new MethodNotAllowedException(HttpMethod.GET);
+
         return Response.created(Link.fromUriBuilder(uriInfo.getAbsolutePathBuilder()
                 .path(String.valueOf(newMessage.getId())))
                 .build().getUri())
@@ -67,7 +71,7 @@ public class MessageResource {
 
         if (messages.isEmpty()) {
             Response.Status status = Response.Status.INTERNAL_SERVER_ERROR;
-            Error error = new Error("The database is empty", status.getStatusCode(), "https://github.com/matebence");
+            Error error = new Error("https://github.com/matebence", "The database is empty", status.getStatusCode());
 
 //            Response.seeOther(uriInfo.getBaseUriBuilder()
 //                    .path(MessageResource.class, "getMessage")

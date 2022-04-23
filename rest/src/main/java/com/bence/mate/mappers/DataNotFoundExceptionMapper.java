@@ -15,7 +15,7 @@ public class DataNotFoundExceptionMapper implements ExceptionMapper<DataNotFound
 
     public Response toResponse(DataNotFoundException e) {
         Response.Status status = Response.Status.NOT_FOUND;
-        Error error = new Error(e.getMessage(), status.getStatusCode(), "https://github.com/matebence");
+        Error error = new Error("https://github.com/matebence", e.getMessage(), status.getStatusCode());
 
         return Response.status(status)
                 .entity(error)

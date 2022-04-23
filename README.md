@@ -58,6 +58,20 @@
 - nouns
 - verbs
 
+**Caching**
+In HTTP 1.1 the Cache-Control header specifies the resource caching behavior as well as the max age the resource can be cached
+- `private` only clients (mostly the browser) and no one else in the chain (like a proxy) should cache this
+- `public` any entity in the chain can cache this
+- `no-cache` should not be cached anyway
+- `no-store` can be cached but should not be stored on disk (most browsers will hold the resources in memory until they will be quit)
+- `no-transform` the resource should not be modified (for example shrink image by proxy)
+- `max-age` how long the resource is valid (measured in seconds)
+- `s-maxage` same like max-age but this value is just for non clients
+
+Conditional requests are those where the browser can ask the server if it has an updated copy of the resource. The browser will send one or both of the ETag and If-Modified-Since headers about the cached resource it holds. The server can then determine whether updated content should be returned or the browser’s copy is the most recent.
+
+In JAX-RS the Request object has a method to check wether the data based on the date or the etag from the client was modified. The ETag value should be a unique hash of the resource and requires knowledge of internal business logic to construct. One possibility is to use the HashCode of a object as the etag
+
 **REST constrains**
 - Client-Server
 	- Architecture must be CLIENT <-> SERVER
@@ -69,7 +83,7 @@
 	- Logging
 	- Authorization
 - Uniform Interface
-	- Only one way to get the resource - well formated urls
+	- Only one way to get the resource - well formated URLs and metadata
 - Hypermedia options
 	- Useage of HATEOAS
 
@@ -207,7 +221,31 @@ reload
 
 > #### cURL scripts
 
-> @Message resource (CREATE)
+> API health endpoint
+
+```bash
+# Response Ok
+curl -v -XGET -H 'Accept: application/xml' 'http://localhost:8080/rest/api/health'
+
+# Response Ok
+curl -v -XGET -H 'Accept: application/json' 'http://localhost:8080/rest/api/health'
+```
+
+
+
+> API discover endpoint
+
+```bash
+# Response Ok
+curl -v -XGET -H 'Accept: application/xml' 'http://localhost:8080/rest/api/discover'
+
+# Response Ok
+curl -v -XGET -H 'Accept: application/json' 'http://localhost:8080/rest/api/discover'
+```
+
+
+
+> Message resource (CREATE)
 
 ```bash
 # Response Forbidden
@@ -222,7 +260,7 @@ curl -v -XPOST -u ecneb:password123 -H 'Accept: application/json' -H 'Content-ty
 
 
 
-> @Message resource (GET ALL)
+> Message resource (GET ALL)
 
 ```bash
 # Response Forbidden
@@ -237,7 +275,7 @@ curl -v -XGET -u ecneb:password123 -H 'Accept: application/json' 'http://localho
 
 
 
-> @Message resource (UPDATE)
+> Message resource (UPDATE)
 
 ```bash
 # Response Forbidden
@@ -252,7 +290,7 @@ curl -v -XPUT -u ecneb:password123 -H 'Accept: application/json' -H 'Content-typ
 
 
 
-> @Message resource (DELETE)
+> Message resource (DELETE)
 
 ```bash
 # Response Forbidden
@@ -267,7 +305,7 @@ curl -v -XDELETE --cookie 'cookieId=1' -u ecneb:password123 -H 'headerId: 1' -H 
 
 
 
-> @Message resource (GET)
+> Message resource (GET)
 
 ```bash
 # Response Ok
@@ -282,7 +320,7 @@ curl -v -XGET -u ecneb:password123 -H 'Accept: application/json' 'http://localho
 
 
 
-> @Message resource (FILTER)
+> Message resource (FILTER)
 
 ```bash
 # Response Ok
@@ -297,7 +335,7 @@ curl -v -XGET -u ecneb:password123 -H 'Accept: application/json' 'http://localho
 
 
 
-> @Profile resource (CREATE)
+> Profile resource (CREATE)
 
 ```bash
 # Response Ok
@@ -312,7 +350,7 @@ curl -v -XPOST -u ecneb:password123 -H 'Accept: application/json' -H 'Content-ty
 
 
 
-> @Profile resource (GET ALL)
+> Profile resource (GET ALL)
 
 ```bash
 # Response Ok
@@ -327,7 +365,7 @@ curl -v -XGET -u ecneb:password123 -H 'Accept: application/json' 'http://localho
 
 
 
-> @Profile resource (UPDATE)
+> Profile resource (UPDATE)
 
 ```bash
 # Response Ok
@@ -342,7 +380,7 @@ curl -v -XPUT -u ecneb:password123 -H 'Accept: application/json' -H 'Content-typ
 
 
 
-> @Profile resource (DELETE)
+> Profile resource (DELETE)
 
 ```bash
 # Response Forbidden
@@ -357,7 +395,7 @@ curl -v -XDELETE -u ecneb:password123 -H 'Accept: application/json' 'http://loca
 
 
 
-> @Profile resource (GET)
+> Profile resource (GET)
 
 ```bash
 # Response Forbidden
@@ -372,7 +410,7 @@ curl -v -XGET -u ecneb:password123 -H 'Accept: application/json' 'http://localho
 
 
 
-> @Profile resource (FILTER)
+> Profile resource (FILTER)
 
 ```bash
 # Response Forbidden
@@ -387,7 +425,7 @@ curl -v -XGET -u ecneb:password123 -H 'Accept: application/json' 'http://localho
 
 
 
-> @Profile resource (SUBRESOURCE)
+> Profile resource (SUBRESOURCE)
 
 ```bash
 # Response Forbidden
@@ -402,7 +440,7 @@ curl -v -XGET -u ecneb:password123 -H 'Accept: application/json' 'http://localho
 
 
 
-> @Profile resource (CONTENT NEGOTIATION)
+> Profile resource (CONTENT NEGOTIATION)
 
 ```bash
 # Response Forbidden
