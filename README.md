@@ -172,6 +172,33 @@ In JAX-RS the Request object has a method to check wether the data based on the 
 ]
 ```
 
+> #### Annotations
+
+- @GET - method annotation indicates a GET request
+- @POST - method annotation indicates a POST request
+- @PUT - method annotation indicates a PUT request
+- @DELETE - method annotation indicates a DELETE request
+
+- @Path - Sets the path in URL
+- @ApplicationPath - Sets the base path for the whole application
+
+- @Produces - Indicates what type of data will be produced
+- @Consumes - Indicates what type of data is required for the given endpoint
+
+- @ProvideLink - sets HATEOAS links in the response
+
+- @Context UriInfo uriInfo - Getting context from URI
+- @Context Request request - Getting context from Request
+- @Context HttpHeaders headers - Getting context from Header
+
+- @PathParam - Setting path param
+- @MatrixParam - Setting matrix param
+- @CookieParam - Setting cookie param
+- @HeaderParam - Setting header param
+- @BeanParam - Sets all the params to a bean
+- @QueryParam - Setting query param
+- @DefaultValue - Setting default value for any of the above params
+
 > #### Wildfly setup
 
 ```bash
