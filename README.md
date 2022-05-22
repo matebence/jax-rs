@@ -199,6 +199,10 @@ In JAX-RS the Request object has a method to check wether the data based on the 
 - @QueryParam - Setting query param
 - @DefaultValue - Setting default value for any of the above params
 
+- @DenyAll - Specifies that no security roles are permitted to access your resources
+- @PermitAll - Specifies that all security roles are permitted to access your resources
+- @RolesAllowed - specifies the security roles that are permitted to access your resources
+
 > #### Wildfly setup
 
 ```bash
