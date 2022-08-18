@@ -132,12 +132,12 @@ In JAX-RS the Request object has a method to check wether the data based on the 
 |Delete message     |/messages/{id} 		   |DELETE 					|Success  			|200 or 204 		|
 |Delete message     |/messages/{id} 		   |DELETE 					|Not found 			|404 				|
 |Delete message     |/messages/{id} 		   |DELETE 					|Failure 			|500 				|
-|Edit message       |/messages/{id} 		   |POST 					|Success  			|200 				|
-|Edit message       |/messages/{id} 		   |POST 					|Wrong format 		|400 or 415 		|
-|Edit message       |/messages/{id} 		   |POST 					|Failure  			|500 				|
-|Create message     |/messages 	 			   |PUT 					|Success  			|201 				|
-|Create message     |/messages 	 			   |PUT 					|Wrong format		|400 or 415 		|
-|Create message     |/messages 	 			   |PUT 					|Failure  			|500 				|
+|Edit message       |/messages/{id} 		   |PUT 					|Success  			|200 				|
+|Edit message       |/messages/{id} 		   |PUT 					|Wrong format 		|400 or 415 		|
+|Edit message       |/messages/{id} 		   |PUT 					|Failure  			|500 				|
+|Create message     |/messages 	 			   |POST 					|Success  			|201 				|
+|Create message     |/messages 	 			   |POST 					|Wrong format		|400 or 415 		|
+|Create message     |/messages 	 			   |POST 					|Failure  			|500 				|
 
 > Resource exmaple
 
